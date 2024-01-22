@@ -7,7 +7,10 @@
         {
             "host": "kickstart.domain.org",
             "http2https": true,
-            "lets_encrypt": true
+            "lets_encrypt": true,
+            "POSTGRES_DB": "joplin,m1",
+            "POSTGRES_USER": "mysql",
+            "POSTGRES_PASSWORD": "mysql"
         }
     ],
     "type": "object",
@@ -31,6 +34,15 @@
             "type": "boolean",
             "title": "HTTP to HTTPS redirection",
             "description": "Redirect all the HTTP requests to HTTPS"
+        },
+        "POSTGRES_DB": {
+            "type": "string"
+        },
+        "POSTGRES_USER": {
+            "type": "string"
+        },
+        "POSTGRES_PASSWORD": {
+            "type": "string"
         }
     }
 }
