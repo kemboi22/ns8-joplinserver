@@ -1,0 +1,43 @@
+#
+# Copyright (C) 2023 Nethesis S.r.l.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+
+#
+# This systemd unit starts a ns8-paperless-ngx instance using Podman.
+# Most parts of this file come from podman-generate-systemd.
+#
+[Unit]
+Description=Podman joplin server
+Requires=joplin.service
+Before=joplin-pgsql.service
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+EnvironmentFile=%S/state/environment
+EnvironmentFile=%S/state/database.env
+WorkingDirectory=%S/state
+Restart=always
+ExecStartPre=/bin/rm -f %t/joplin-server.pid %t/joplin-server.ctr-id
+ExecStartPre=/usr/local/bin/runagent discover-smarthost
+ExecStart=/usr/bin/podman run \
+    --detach \
+    --conmon-pidfile=%t/joplin-server.pid \
+    --pod-id-file=%t/joplin.pod-id \
+    --cidfile=%t/joplin-server.ctr-id \
+    --cgroups=no-conmon \
+    --replace --name=%N \
+    --env-file=smarthost.env \
+    --env=JOPLIN_* \
+    --env=JOPLIN_DBENGINE=postgresql \
+    --env=JOPLIN_DBHOST=127.0.0.1 \
+    --env=JOPLIN_DBNAME=${POSTGRES_DATABASE} \
+    --env=JOPLIN_DBUSER=${POSTGRES_USER} \
+    --env=JOPLIN_DBPASS=${POSTGRES_PASSWORD} \
+    ${SERVER_IMAGE}
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/joplin-server.ctr-id -t 10
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/joplin-server.ctr-id
+PIDFile=%t/joplin-server.pid
+Type=forking
+
+[Install]
+WantedBy=default.target
