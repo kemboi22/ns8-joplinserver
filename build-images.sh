@@ -48,6 +48,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.images=docker.io/postgres:16 docker.io/joplin/server:latest" \
     "${container}"
  #   --label="org.nethserver.images=docker.io/postgres:16 docker.io/florider89/joplin-server:latest" \
+  #   --label="org.nethserver.images=docker.io/postgres:16 docker.io/etechonomy/joplin-server:latest" \
 # Commit the image
 buildah commit "${container}" "${repobase}/${reponame}"
 
