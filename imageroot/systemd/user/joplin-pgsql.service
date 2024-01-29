@@ -20,7 +20,8 @@ ExecStartPre=/bin/rm -f %t/joplin-pgsql.pid %t/joplin-pgsql.ctr-id
 ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/joplin-pgsql.pid \
     --cidfile %t/joplin-pgsql.ctr-id --cgroups=no-conmon \
-    --pod-id-file %t/joplin.pod-id --replace -d --name  joplin-pgsql \
+    --pod-id-file %t/joplin.pod-id \
+    --replace -d --name  joplin-pgsql \
     --env-file=%S/state/database.env \
     --volume postgres-data:/var/lib/postgresql/data:Z \
        ${POSTGRES_IMAGE}

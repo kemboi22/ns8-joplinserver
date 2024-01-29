@@ -33,8 +33,8 @@ ExecStart=/usr/bin/podman run \
     --env=JOPLIN_DBNAME=${POSTGRES_DATABASE} \
     --env=JOPLIN_DBUSER=${POSTGRES_USER} \
     --env=JOPLIN_DBPASS=${POSTGRES_PASSWORD} \
- #   ${JOPLIN_SERVER_IMAGE}
-     ${SERVER_IMAGE}
+    ${JOPLIN_SERVER_IMAGE}
+ #    ${SERVER_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/joplin-server.ctr-id -t 10
 ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/joplin-server.ctr-id
 PIDFile=%t/joplin-server.pid
