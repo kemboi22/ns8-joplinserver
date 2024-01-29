@@ -46,7 +46,6 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
     --label="org.nethserver.images=docker.io/postgres:16 docker.io/etechonomy/joplin-server:latest" \
-
     "${container}"
 #   --label="org.nethserver.images=docker.io/postgres:16 docker.io/florider89/joplin-server:latest" \
 #   --label="org.nethserver.images=docker.io/postgres:16 docker.io/etechonomy/joplin-server:latest" \
