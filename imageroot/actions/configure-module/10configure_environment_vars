@@ -30,7 +30,7 @@ data = json.load(sys.stdin)
 # joplin url settings
 host = data.get("host", "")
 port = data.get("TCP_PORT", "")
-APP_BASE_URL = "https://"+host:port
+APP_BASE_URL = "https://"+host:+port
 APP_PORT = port
 
 # DB Config
